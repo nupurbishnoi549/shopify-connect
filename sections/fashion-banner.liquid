@@ -1,0 +1,57 @@
+<section
+  class="relative w-full xl:!py-[180px] lg:!py-[120px] md:!py-20 !py-[140px] flex items-center justify-center bg-cover bg-center max-w-[1920px] mx-auto"
+  style="background-image: url('{{ section.settings.fashion_image | img_url: '2000x' }}');"
+>
+  <!-- Overlay -->
+  <div class="absolute inset-0 !bg-[#0101016B]"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 space-y-8">
+    <h1 class="text-white lg:!text-custom-6xl md:!text-custom-4xl !font-secondary !text-custom-2xl font-semibold !leading-[120%] !pb-8">
+      {{ section.settings.fashion_heading }}
+    </h1>
+    <a
+      href="{{ section.settings.fashion_button_link }}"
+      class="bg-white !text-theme-black !text-base border !border-white font-bold !font-primary py-4 px-8 shadow hover:!border-text-theme hover:!bg-transparent hover:!text-white transition inline-block !mt-0"
+    >
+      {{ section.settings.fashion_button_text }}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Fashion Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "fashion_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "fashion_heading",
+      "label": "Heading",
+      "default": "Bring Fashion to Your Life"
+    },
+    {
+      "type": "text",
+      "id": "fashion_button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "fashion_button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fashion Banner",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

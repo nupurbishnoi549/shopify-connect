@@ -1,0 +1,49 @@
+<style>
+      @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+  .marquee-content {
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>
+
+<div class="bg-[#16244A] overflow-hidden whitespace-nowrap relative py-4 max-w-[1920px] mx-auto">
+  <div class="marquee-content flex">
+    {% assign announcements = 'Free Shipping On All Orders|No Minimum Purchase|Free Shipping On All Orders|Get 10% Off Your First Order — Use Code: "WELCOME10"'
+      | split: '|'
+    %}
+
+    {% for i in (1..6) %}
+      {% for text in announcements %}
+        <span class="inline-flex items-center gap-3 !font-primary !mr-10 text-white font-semibold md:text-2xl text-base whitespace-nowrap">
+          <!-- SVG Star -->
+          <svg
+            class="md:!size-[24px] !size-[18px] flex-shrink-0"
+            viewBox="0 0 25 25"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+          >
+            <path d="M12.2619 0.599153C12.2083 0.659212 11.86 1.54291 11.4849 2.55531C11.1009 3.56771 10.583 4.78602 10.3329 5.2579C9.41308 6.97382 7.87706 8.62969 6.18029 9.71073C5.04614 10.44 4.34957 10.7489 2.05447 11.5468C0.125518 12.216 -0.142392 12.3618 0.0540756 12.6535C0.116588 12.7479 0.92925 13.0739 2.05447 13.4686C4.34957 14.2665 5.04614 14.5754 6.18029 15.3047C7.87706 16.3857 9.41308 18.0416 10.3329 19.7575C10.583 20.2294 11.1009 21.4477 11.476 22.4601C11.86 23.4725 12.2261 24.3562 12.2887 24.4248C12.3512 24.4934 12.4851 24.5192 12.6191 24.4849C12.8066 24.442 12.9138 24.2275 13.4764 22.7003C13.8336 21.7394 14.3069 20.5983 14.5212 20.1521C15.709 17.7241 17.7272 15.7422 20.2545 14.5239C20.6832 14.318 21.7548 13.8976 22.6389 13.5973C25.1394 12.7308 25.0233 12.7822 24.9876 12.482C24.9608 12.2331 24.934 12.216 22.9515 11.521C21.8441 11.1349 20.5939 10.6545 20.1831 10.4486C17.6826 9.23027 15.7 7.27411 14.5212 4.86323C14.3069 4.41709 13.8425 3.28458 13.4853 2.34082C13.137 1.39706 12.7977 0.599153 12.7441 0.564836C12.5834 0.461879 12.3601 0.487619 12.2619 0.599153Z" fill="white"/>
+          </svg>
+          {{ text }}
+        </span>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

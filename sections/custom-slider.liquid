@@ -1,0 +1,426 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+>
+<style>
+  .added-to-wishlist svg {
+    stroke: var(--color-orange) !important;
+  }
+  .added-to-wishlist svg path {
+    fill: white !important;
+    stroke: var(--color-orange) !important;
+  }
+</style>
+
+<div
+  id="catering-options"
+  class="px-[20px] !pt-[{{ section.settings.padding_top }}px] !pb-[{{ section.settings.padding_bottom }}px] max-md:pt-[{{ section.settings.mobile_padding_top }}px] max-md:pt-[{{ section.settings.mobile_padding_bottom }}px] bg-[{{ section.settings.background_color }}]"
+>
+  <div class="max-w-[1140px] overflow-x-hidden mx-auto">
+    <div class="md:pb-[51px] pb-[24px] flex justify-between items-center">
+      <div class="max-w-[532px]">
+        <h2
+          class="font-[400] bricolage-grotesque-ff !normal-case !text-[24px] pb-[16px] !leading-[120%] !text-[{{ section.settings.text_color }}]"
+        >
+          {{ section.settings.heading }}
+        </h2>
+        <p
+          class="!text-[16px] !leading-[150%] roboto-font !font-[400] !text-[{{ section.settings.text_color }}]/70"
+        >
+          {{ section.settings.description }}
+        </p>
+      </div>
+      <!-- Desktop buttons -->
+      <div
+        class="sm:!flex w-full !justify-end !hidden gap-[8px]"
+      >
+        <!-- Previous Button -->
+        <div
+          class="catering-option-button-prev !w-[40px] !h-[40px] flex group justify-center cursor-pointer items-center hover:!bg-{{ section.settings.slider_arrow_color }} bg-transparent rounded-full min-w-[40px] !border size-[40px] !border-{{ section.settings.slider_arrow_color }} transition-all duration-300"
+          style="display: none;"
+        >
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="group-hover:!stroke-white transition-all duration-300"
+              d="M4.66602 10L16.3327 10M4.66602 10L9.66602 5M4.66602 10L9.66602 15"
+              stroke="{% if section.settings.slider_arrow_color == 'ligth-yellow' %}#BEDE41{% else %}#9787FE{% endif %}"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <!-- Next Button -->
+        <div
+          class="catering-option-button-next !w-[40px] !h-[40px] flex group justify-center cursor-pointer items-center group hover:!bg-{{ section.settings.slider_arrow_color }} bg-transparent rounded-full min-w-[40px] !border size-[40px] !border-{{ section.settings.slider_arrow_color }} transition-all duration-300"
+          style="display: none;"
+        >
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="group-hover:!stroke-white transition-all duration-300"
+              d="M16.334 10L4.66732 10M16.334 10L11.334 5M16.334 10L11.334 15"
+              stroke="{% if section.settings.slider_arrow_color == 'ligth-yellow' %}#BEDE41{% else %}#9787FE{% endif %}"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swiper container -->
+    <div class="catering-options !max-w-[1140px] mx-auto">
+      <div class="swiper-wrapper !pb-[20px] !h-auto">
+        {% for product in collections[section.settings.collection].products %}
+          <div class="swiper-slide">
+            <div
+              class="p-[24px] !shadow-[0_4px_12.1px_0_#01010133] bg-white relative rounded-[16px] max-sm:!p-[16px] max-w-[364px] relative"
+            >
+              {% assign first_collection = product.collections | first %}
+              {% if first_collection %}
+                <p
+                  class="text-[12px] text-white font-normal !bg-purple-dark py-[8px] px-[16px] uppercase rounded-full roboto-font absolute max-sm:!top-[4.5%] max-sm:!left-[6.5%] top-[40px] left-[40px]"
+                >
+                  {{ first_collection.title }}
+                </p>
+              {% endif %}
+              <a href="{{ product.url }}">
+                <img
+                  loading="lazy"
+                  src="{{ product.featured_image | image_url }}"
+                  alt="{{ product.title }}"
+                  class="!max-h-[364px] rounded-[8px] !h-[254px]"
+                  width="364"
+                  height="254"
+                >
+              </a>
+              <div class="pt-[16px]">
+                <a href="{{ product.url }}">
+                  <h4
+                    class="font-[500] bricolage-grotesque-ff !text-[20px] !text-[#010101] !mb-[16px] !line-clamp-1 !leading-[120%]"
+                  >
+                    {{ product.title }}
+                  </h4>
+                  <p
+                    class="roboto-font font-[400] !text-[16px] text-[#010101B2] !leading-[150%] !line-clamp-1 max-sm:!line-clamp-2 !overflow-hidden !mb-[16px]"
+                  >
+                    {{ product.description | strip_html | truncatewords: 10 }}
+                  </p>
+                  <p
+                    class="font-[600] !text-[20px] bricolage-grotesque-ff !leading-[120%] pb-[8px] !text-black"
+                  >
+                    <span
+                      class="text-[12px] font-[400] pr-[2px] bricolage-grotesque-ff"
+                      >Ab</span
+                    >
+                    {{ product.price | money_without_currency -}}
+                    {{- cart.currency.symbol }}/
+                    <span
+                      class="text-[12px] font-[400] pr-[2px] bricolage-grotesque-ff"
+                      >person</span
+                    >
+                  </p>
+                  <div class="flex gap-[8px] pb-[8px] items-center">
+                    <img
+                      src="{{ 'clock.svg' | asset_url }}"
+                      width="16"
+                      height="16"
+                      class="!size-[16px]"
+                    >
+                    <p class="bricolage-grotesque-ff text-[14px]">
+                      Time:
+                      <span>{{ product.metafields.custom.min_hour | default: 4 }} Hours</span>
+                    </p>
+                  </div>
+                  <div class="flex gap-[8px] pb-[8px] items-center">
+                    <img
+                      src="{{ 'peoples-icon.svg' | asset_url }}"
+                      width="16"
+                      height="16"
+                      class="!size-[16px]"
+                    >
+                    <p class="bricolage-grotesque-ff text-[14px]">
+                      People :
+                      <span> Min {{ product.metafields.custom.min_people | default: 25 }}</span>
+                      <span> Max {{ product.metafields.custom.max_people | default: 100 }}</span>
+                    </p>
+                  </div>
+                </a>
+                <div class="!mt-[16px] flex justify-between items-center">
+                  <a
+                    href="{{ product.metafields.custom.button | default: product.url }}"
+                    class=" !inline-block !text-purple-dark !rounded-[4px] !px-[22px] !py-[15px] roboto-font !border hover:!text-white  hover:!bg-purple-dark !borde-solid !border-purple-dark !text-[16px] !font-[500] transition-all"
+                  >
+                    Add to cart
+                  </a>
+                  <div class="flex gap-[10px] items-center">
+                    <a
+                      href="#"
+                      class="size-[46px] rounded-full flex justify-center items-center !bg-purple-dark"
+                    >
+                      <img
+                        src="{{ 'share-icon.svg' | asset_url }}"
+                        class="!w-[16px] !h-[19px]"
+                        width="16"
+                        height="19"
+                        alt="share-icon"
+                      >
+                    </a>
+                    <button
+                      aria-label="Add To Wishlist"
+                      class="size-[46px] max-sm:top-[20px] max-sm:right-[20px] !border !border-solid !border-purple-dark !bg-purple-dark !rounded-full m-wishlist-button flex justify-center items-center"
+                      data-product-handle="{{ product.handle }}"
+                      aria-label="{% if product.in_wishlist %}Remove from wishlist{% else %}Add to wishlist{% endif %}"
+                    >
+                      <svg
+                        width="25"
+                        height="23"
+                        viewBox="0 0 79 79"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M39.5007 70.2771L34.7277 65.9321C17.7757 50.56 6.58398 40.3888 6.58398 27.9792C6.58398 17.8079 14.5498 9.875 24.6882 9.875C30.4157 9.875 35.9127 12.5412 39.5007 16.7217C43.0886 12.5412 48.5857 9.875 54.3132 9.875C64.4515 9.875 72.4173 17.8079 72.4173 27.9792C72.4173 40.3888 61.2257 50.56 44.2736 65.9321L39.5007 70.2771Z"
+                          fill="#9787FE"
+                          stroke="white"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile buttons -->
+      <div
+        class="sm:!hidden w-full !justify-center mt-[24px] flex gap-[8px]"
+      >
+        <!-- Previous Button -->
+        <div
+          class="catering-option-button-prev !w-[40px] !h-[40px] flex group justify-center cursor-pointer items-center hover:!bg-{{ section.settings.slider_arrow_color }} bg-transparent rounded-full min-w-[40px] !border size-[40px] !border-{{ section.settings.slider_arrow_color }} transition-all duration-300"
+          style="display: none;"
+        >
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="group-hover:!stroke-white transition-all duration-300"
+              d="M4.66602 10L16.3327 10M4.66602 10L9.66602 5M4.66602 10L9.66602 15"
+              stroke="{% if section.settings.slider_arrow_color == 'ligth-yellow' %}#BEDE41{% else %}#9787FE{% endif %}"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <!-- Next Button -->
+        <div
+          class="catering-option-button-next !w-[40px] !h-[40px] flex group justify-center cursor-pointer items-center group hover:!bg-{{ section.settings.slider_arrow_color }} bg-transparent rounded-full min-w-[40px] !border size-[40px] !border-{{ section.settings.slider_arrow_color }} transition-all duration-300"
+          style="display: none;"
+        >
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="group-hover:!stroke-white transition-all duration-300"
+              d="M16.334 10L4.66732 10M16.334 10L11.334 5M16.334 10L11.334 15"
+              stroke="{% if section.settings.slider_arrow_color == 'ligth-yellow' %}#BEDE41{% else %}#9787FE{% endif %}"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function () {
+      const swiperContainer = document.querySelector('.catering-options');
+      if (!swiperContainer) {
+        console.warn('Swiper container not found');
+        return;
+      }
+
+      // Select original slides only
+      const slides = swiperContainer.querySelectorAll('.swiper-slide');
+
+      const prevBtns = document.querySelectorAll('.catering-option-button-prev');
+      const nextBtns = document.querySelectorAll('.catering-option-button-next');
+
+      if (slides.length === 0) {
+        console.warn('No slides found inside Swiper container');
+        return;
+      }
+
+      if (typeof Swiper === 'undefined') {
+        console.warn('Swiper is not loaded');
+        return;
+      }
+
+      const swiper = new Swiper('.catering-options', {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: slides.length > 1,
+        breakpoints: {
+          480: { slidesPerView: 1.5 },
+          690: { slidesPerView: 1.7 },
+          760: { slidesPerView: 2 },
+          860: { slidesPerView: 2.3 },
+          960: { slidesPerView: 3 },
+        },
+        on: {
+          init() {
+            toggleArrows();
+          },
+          resize() {
+            toggleArrows();
+          },
+        },
+      });
+
+      function toggleArrows() {
+        const originalSlideCount = slides.length;
+        const shouldShow = originalSlideCount >= 4; // Show arrows only if 4 or more slides
+
+        console.log('Slides count:', originalSlideCount, 'Show arrows:', shouldShow);
+
+        prevBtns.forEach((btn) => (btn.style.display = shouldShow ? 'flex' : 'none'));
+        nextBtns.forEach((btn) => (btn.style.display = shouldShow ? 'flex' : 'none'));
+      }
+
+      // Initial check
+      toggleArrows();
+
+      window.addEventListener('resize', toggleArrows);
+
+      // Navigation event handlers
+      prevBtns.forEach((btn) => btn.addEventListener('click', () => swiper.slidePrev()));
+      nextBtns.forEach((btn) => btn.addEventListener('click', () => swiper.slideNext()));
+    }, 500); // Delay to ensure DOM readiness
+  });
+</script>
+
+<script>
+  btn.classList.add(this.addedClass); // => "added-to-wishlist"
+</script>
+
+{% schema %}
+{
+  "name": "Catering Options",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "background Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texts Color"
+    },
+    {
+      "type": "text",
+      "label": "heading",
+      "id": "heading"
+    },
+    {
+      "type": "text",
+      "label": "description",
+      "id": "description"
+    },
+    {
+      "type": "collection",
+      "label": "Collection",
+      "id": "collection"
+    },
+    {
+      "type": "text",
+      "label": "Collection Type",
+      "id": "collection_type"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 10,
+      "max": 100,
+      "default": 100,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 10,
+      "max": 100,
+      "default": 100,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 10,
+      "max": 100,
+      "default": 40,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding bottom",
+      "min": 10,
+      "max": 100,
+      "default": 40,
+      "step": 10
+    },
+    {
+      "type": "select",
+      "id": "slider_arrow_color",
+      "label": "Slider Arrow Color",
+      "options": [
+        {
+          "value": "ligth-yellow",
+          "label": "Orange"
+        },
+        {
+          "value": "purple-dark",
+          "label": "Purple"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Catering Options"
+    }
+  ]
+}
+{% endschema %}

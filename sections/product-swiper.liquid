@@ -1,0 +1,194 @@
+<!-- sections/static-products-swiper.liquid -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<section class="!py-[130px] px-6">
+  <div class="max-w-[1140px] mx-auto">
+    <!-- Heading + Arrows -->
+    <div class="flex justify-between items-center !mb-[60px]">
+      <div>
+        {% if section.settings.heading != blank %}
+          <h2 class="!leading-[120%] !font-semibold !text-[48px] !text-theme-black !mb-2 !font-secondary">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <p class="!text-theme-black !opacity-[70%] !font-primary !font-normal !text-base !leading-[150%]">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+      </div>
+      <div class="flex gap-3">
+        <button class="custom-prev bg-white w-10 h-10 border border-black rounded-full shadow flex items-center justify-center">
+          ←
+        </button>
+        <button class="custom-next bg-white w-10 h-10 border border-black rounded-full shadow flex items-center justify-center">
+          →
+        </button>
+      </div>
+    </div>
+
+    <!-- Swiper -->
+    <div class="swiper products-swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="bg-white">
+              <div class="relative">
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | img_url: '600x600' }}"
+                    alt="{{ block.settings.title }}"
+                    class="w-full object-cover"
+                  >
+                {% endif %}
+
+                <!-- Heart Icon -->
+                <button
+                  class="absolute top-3 left-4 bg-white rounded-full p-2"
+                  aria-label="Add to Wishlist"
+                >
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g opacity="0.5">
+                      <path d="M6.2513 3.3335C3.72005 3.3335 1.66797 5.38558 1.66797 7.91683C1.66797 12.5002 7.08464 16.6668 10.0013 17.636C12.918 16.6668 18.3346 12.5002 18.3346 7.91683C18.3346 5.38558 16.2826 3.3335 13.7513 3.3335C12.2013 3.3335 10.8305 4.10308 10.0013 5.281C9.57859 4.67907 9.01711 4.18783 8.36437 3.84884C7.71162 3.50985 6.98682 3.33308 6.2513 3.3335Z"
+                        stroke="#010101"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                    </g>
+                  </svg>
+                </button>
+              </div>
+
+              <div>
+                {% if block.settings.title != blank %}
+                  <h3 class="font-semibold pt-5 !font-primary !text-[28px] !leading-[130%] !text-theme-black pb-2">
+                    {{ block.settings.title }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.description != blank %}
+                  <p class="!text-theme-black !opacity-[70%] !font-primary !font-normal !text-base !leading-[150%] pb-6">
+                    {{ block.settings.description }}
+                  </p>
+                {% endif %}
+                <div class="mt-2">
+                  {% if block.settings.compare_price != blank %}
+                    <span class="line-through !leading-[100%] !text-xl !text-theme-black !font-semibold !font-primary !opacity-[42%] mr-2">
+                      {{- block.settings.compare_price -}}
+                    </span>
+                  {% endif %}
+                  {% if block.settings.price != blank %}
+                    <span class="!leading-[100%] !text-2xl !text-theme-black !font-semibold !font-primary">
+                      {{- block.settings.price -}}
+                    </span>
+                  {% endif %}
+                </div>
+                {% if block.settings.button_text != blank %}
+                  <a
+                    href="{{ block.settings.button_link }}"
+                    class="w-full border !border-theme-black py-[17px] !text-base !text-theme-black !leading-[100%] !font-bold !font-primary mt-8 block text-center hover:bg-black hover:!text-white transition"
+                  >
+                    {{ block.settings.button_text }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.products-swiper', {
+      loop: true,
+      slidesPerView: 3,
+      spaceBetween: 24,
+      navigation: {
+        nextEl: '.custom-next',
+        prevEl: '.custom-prev',
+      },
+      breakpoints: {
+        1024: { slidesPerView: 3 },
+        768: { slidesPerView: 2 },
+        0: { slidesPerView: 1 },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Static Products Swiper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Products"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop digitally printed, rotary, and dyed fabrics in pre-cut packs—ready to ship."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Product Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Short product description goes here."
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare at Price",
+          "default": "$139.00"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$119.00"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Add to Cart"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Static Products Swiper",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

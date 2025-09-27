@@ -1,0 +1,121 @@
+<!-- sections/fabric-hero.liquid -->
+<section class="sm:!bg-blue-trans !bg-purple-trans relative overflow-hidden max-w-[1920px] mx-auto">
+  <div class="max-w-[1290px] min-[1910px]:!mx-auto !mr-auto max-md:!pt-20">
+    <!-- Feather images -->
+    {% if section.settings.feather1 != blank %}
+      <img
+        src="{{ section.settings.feather1 | img_url: 'master' }}"
+        alt="Feather 1"
+        class="absolute top-0 right-[20%] lg:!block hidden !w-[251px] !h-[123px] pointer-events-none"
+        width="251"
+        height="123"
+      >
+    {% endif %}
+    {% if section.settings.feather2 != blank %}
+      <img
+        src="{{ section.settings.feather2 | img_url: 'master' }}"
+        alt="Feather 2"
+        class="absolute bottom-0 right-0 lg:!block hidden !w-[248px] !h-[121px] pointer-events-none"
+        width="248"
+        height="121"
+      >
+    {% endif %}
+    {% if section.settings.feather3 != blank %}
+      <img
+        src="{{ section.settings.feather3 | img_url: 'master' }}"
+        alt="Feather 3"
+        class="absolute bottom-0 right-[35.5%] lg:!block hidden !w-[248px] !h-[121px] pointer-events-none"
+        width="248"
+        height="121"
+      >
+    {% endif %}
+
+    <div class=" flex flex-col-reverse md:flex-row items-center relative z-10 md:!gap-[77px] !gap-10">
+      <div class="relative w-full md:!max-w-[703px]">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | img_url: 'master' }}"
+            alt="{{ section.settings.heading | escape }}"
+            class="w-full h-full object-cover"
+            width="703"
+            height="669"
+          >
+        {% endif %}
+      </div>
+
+      <!-- Right Text Content -->
+      <div class="w-full md:!max-w-[509px] max-xl:!pl-8 max-md:!px-6 max-md:text-center">
+        <h2 class="!text-custom-2xl sm:!text-custom-3xl !font-secondary lg:!text-custom-7xl xl:!text-custom-8xl max-md:!mx-auto max-md:!text-center font-bold !leading-[120%] !text-theme-black !max-w-[509px]">
+          {{ section.settings.heading }}
+        </h2>
+        <p class="mt-4 !text-theme-black md:text-base !font-primary text-sm font-normal !leading-[150%] opacity-[70%]">
+          {{ section.settings.subtext }}
+        </p>
+        {% if section.settings.button_label != blank %}
+          <a
+            href="{{ section.settings.button_link }}"
+            class="inline-block md:mt-6 mt-3 border max-md:!flex !font-primary max-md:!mx-auto border-black !text-theme-black px-8 !max-w-max py-4 text-base font-bold hover:bg-black hover:!text-white transition"
+          >
+            {{ section.settings.button_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Fabric Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left Side Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Create Bold Looks with Every Thread"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "From Fabric to Finished Look — Create Beautifully for Every Mood, Moment, and Maker."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "feather1",
+      "label": "Feather Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "feather2",
+      "label": "Feather Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "feather3",
+      "label": "Feather Image 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fabric Hero Banner"
+    }
+  ]
+}
+{% endschema %}

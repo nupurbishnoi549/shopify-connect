@@ -1,0 +1,93 @@
+<style>
+  @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+</style>
+
+<section class="py-12 px-6">
+  <div class="max-w-[1140px] mx-auto flex flex-col-reverse lg:flex-row items-center gap-10">
+    <!-- Left: Image Grid (inside flex item) -->
+    <div class="flex flex-col gap-4">
+      <!-- Top Row -->
+      <div class="flex gap-4">
+        {% if section.settings.image1 != blank %}
+          <img
+            src="{{ section.settings.image1 | image_url }}"
+            alt="Image 1"
+            class="xl:!max-w-[280px] lg:!max-w-[200px] h-40 md:h-72 object-cover"
+            width="280"
+            height="285"
+          >
+        {% endif %}
+        {% if section.settings.image2 != blank %}
+          <img
+            src="{{ section.settings.image2 | image_url }}"
+            alt="Image 2"
+            class="xl:!max-w-[280px] lg:!max-w-[200px] h-40 md:h-72 object-cover"
+            width="280"
+            height="285"
+          >
+        {% endif %}
+      </div>
+      <!-- Bottom Image -->
+      {% if section.settings.image3 != blank %}
+        <img
+          src="{{ section.settings.image3 | image_url }}"
+          alt="Image 3"
+          class="!max-w-[576px] h-32 md:h-[184px] object-cover"
+          width="576"
+          height="184"
+        >
+      {% endif %}
+    </div>
+
+    <!-- Right: Text Content -->
+    <div class="max-w-[524px] flex-col">
+      <h2 class="!text-custom-2xl md:!text-custom-4xl !font-secondary font-semibold leading-[120%] mb-4 max-lg:text-center">
+        {{ section.settings.heading }}
+      </h2>
+      <p class="lg:text-base text-sm font-normal !font-primary opacity-[70%] !text-theme-black max-lg:text-center">
+        {{ section.settings.paragraph1 }}
+      </p>
+      <p class="md:mb-8 mb-6 lg:text-base text-sm !font-primary font-normal opacity-[70%] !text-theme-black max-lg:text-center">
+        {{ section.settings.paragraph2 }}
+      </p>
+      <a
+        href="{{ section.settings.button_link }}"
+        class="
+          border !border-black max-lg:mx-auto !font-primary !max-w-max max-lg:!flex
+          md:px-8 px-6 md:py-4 py-3 inline-block !text-theme-black font-bold text-base
+          hover:!bg-black hover:!text-white hover:!border-black
+          transition-all duration-300 ease-in-out hover:shadow-md
+        "
+      >
+        {{ section.settings.button_text }}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Kapaas",
+  "settings": [
+    { "type": "image_picker", "id": "image1", "label": "Top Left Image" },
+    { "type": "image_picker", "id": "image2", "label": "Top Right Image" },
+    { "type": "image_picker", "id": "image3", "label": "Bottom Image" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "About Kapaas" },
+    {
+      "type": "textarea",
+      "id": "paragraph1",
+      "label": "Paragraph 1",
+      "default": "At Kapaas, we believe fabric isn’t just material — it’s the beginning of every story you stitch. We curate beautiful, ready-to-use printed and dyed fabrics that are crafted to fuel your creativity, whether you're designing clothing, home decor, or handmade art."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph2",
+      "label": "Paragraph 2",
+      "default": "We specialize in Poplin, Rayon, Cambric, and Satin fabrics, offered in pre-measured fixed packs of 3m, 5m, and 10m — no hassle, no cutting queues, just seamless access to quality."
+    },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Read More" },
+    { "type": "url", "id": "button_link", "label": "Button Link", "default": "/" }
+  ],
+  "presets": [{ "name": "About Kapaas" }]
+}
+{% endschema %}

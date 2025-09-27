@@ -1,0 +1,72 @@
+<!-- sections/print-to-pack.liquid -->
+<section class="!bg-green-trans relative max-w-[1920px] mx-auto">
+  <div class="max-w-[1290px] min-[1910px]:!mx-auto !ml-auto max-md:!pt-20">
+    <div class=" flex flex-col md:flex-row items-center relative z-10 md:!gap-[34px] !gap-10">
+      <!-- Left Column -->
+      <div class="w-full md:!max-w-[553px] max-xl:!pl-8 max-md:!px-6">
+        <h2 class="max-md:!mx-auto max-md:!text-center !text-custom-2xl !font-secondary sm:!text-custom-3xl lg:!text-custom-7xl xl:!text-custom-8xl font-bold !leading-[120%] !text-theme-black !max-w-[553px]">
+          From Print to Pack, Start Creating
+        </h2>
+        <a
+          href="{{ section.settings.button_link | default: '#' }}"
+          class="inline-block md:mt-6 mt-3 border max-md:!flex !font-primary !text-theme-black max-md:!mx-auto border-black px-8 !max-w-max py-4 text-base font-bold hover:bg-black hover:!text-white transition"
+        >
+          {{ section.settings.button_text | default: 'Shop Now' }}
+        </a>
+      </div>
+      <!-- Right Column -->
+      <div class="relative w-full md:!max-w-[703px]">
+        {% if section.settings.main_image %}
+          <img
+            src="{{ section.settings.main_image | img_url: 'master' }}"
+            alt="Fabric Print"
+            class="max-w-[703px] h-full object-cover"
+            width="703"
+            height="669"
+          >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <!-- Feathers Positioned Outside -->
+  {% if section.settings.feather_left_top %}
+    <img
+      src="{{ section.settings.feather_left_top | img_url: 'medium' }}"
+      alt="Feather Top Left"
+      class="absolute xl:top-6 top-0 left-0 xl:!w-[277px] lg:!w-[150px] !w-[120px] xl:!h-[135px] lg:!h-[100px] pointer-events-none"
+      width="277"
+      height="135"
+    >
+  {% endif %}
+  {% if section.settings.feather_left_bottom %}
+    <img
+      src="{{ section.settings.feather_left_bottom | img_url: 'medium' }}"
+      alt="Feather Bottom Left"
+      class="absolute bottom-0 left-0 xl:!w-[248px] lg:!w-[150px] xl:!h-[135px] !w-[120px] lg:!h-[100px] pointer-events-none"
+      width="248"
+      height="121"
+    >
+  {% endif %}
+  {% if section.settings.feather_right_bottom %}
+    <img
+      src="{{ section.settings.feather_right_bottom | img_url: 'medium' }}"
+      alt="Feather Bottom Right"
+      class="absolute sm:bottom-0 bottom-[58%] xl:left-[35%] sm:left-[39%] max-sm:!right-[0%] xl:!w-[248px] lg:!w-[150px] !w-[120px] xl:!h-[135px] lg:!h-[100px] pointer-events-none"
+      width="248"
+      height="121"
+    >
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "Print to Pack Section",
+  "settings": [
+    { "type": "image_picker", "id": "feather_left_top", "label": "Feather Image Top Left" },
+    { "type": "image_picker", "id": "feather_left_bottom", "label": "Feather Image Bottom Left" },
+    { "type": "image_picker", "id": "feather_right_bottom", "label": "Feather Image Bottom Right" },
+    { "type": "image_picker", "id": "main_image", "label": "Main Right Image" },
+    { "type": "url", "id": "button_link", "label": "Button Link" }
+  ],
+  "presets": [{ "name": "Print to Pack Section" }]
+}
+{% endschema %}

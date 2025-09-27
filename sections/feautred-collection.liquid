@@ -1,0 +1,189 @@
+<section class="md:!pb-[60px] md:!pt-[91px] max-sm:bg-[#E2E2E2] !pt-[51px] !pb-[25px] sm:px-6 px-[30px]">
+  <div class="max-w-[1140px] mx-auto">
+    {% if section.settings.heading != blank %}
+      <h2 class="!text-center !font-Inter !font-extrabold text-[#1A1A1A] md:!text-[64px] !text-[32px] leading-[110%] tracking-[-0.96px]">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <!-- Tabs -->
+    <div class="!flex max-md:!flex-wrap max-md:!space-y-[15px] max-md:!items-center !justify-center sm:!space-x-[8px] mb-[60px] md:mt-[20px] !mt-[25px]">
+      {% for block in section.blocks %}
+        {% assign handle = block.settings.tab_collection %}
+        {% assign collection = collections[handle] %}
+        {% if collection != blank %}
+          <button
+            class="
+              tab-btn bg-transparent cursor-pointer !font-Inter text-[#000110] border border-black hover:bg-[#FB8C00] hover:border-[#FB8C00]
+              transition-all duration-700 hover:text-white max-sm:w-full !px-[20px] !min-w-[205px] !py-[18.5px] font-semibold text-[20px] leading-[100%]
+              rounded-full {% if forloop.first %}active{% endif %}
+            "
+            data-tab="tab-{{ block.id }}"
+          >
+            <span class="md:!block !hidden">{{ block.settings.tab_label }}</span>
+            <span class="md:!hidden !block">{{ block.settings.tab_label_mobile }}</span>
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Tab Content -->
+    <div class="max-w-[1140px]">
+      {% for block in section.blocks %}
+        {% assign handle = block.settings.tab_collection %}
+        {% assign collection = collections[handle] %}
+        {% if collection != blank %}
+          <div class="tab-content {% unless forloop.first %}hidden{% endunless %}" id="tab-{{ block.id }}">
+            <div class="!hidden xl:!flex justify-center items-center !gap-2">
+              {%- for product in collection.products limit: 4 -%}
+                <div class="product-card !min-w-[260px] !max-w-[260px]">
+                  <a href="{{ product.url }}">
+                    {% if product.featured_image %}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.title }}"
+                        class="!w-full !h-auto !rounded-xl"
+                      >
+                    {% endif %}
+                    <h3 class="!mt-2 !text-lg !font-semibold">{{ product.title }}</h3>
+                    <span class="!text-sm !text-gray-600">{{ product.price | money }}</span>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+
+            <!-- Swiper (1024px and below) -->
+            <div class="xl:!hidden !block">
+              <div class="swiper mySwiperNew">
+                <div class="swiper-wrapper pb-16">
+                  {%- for product in collection.products limit: 4 -%}
+                    <div class="swiper-slide">
+                      <div class="product-card">
+                        <a href="{{ product.url }}">
+                          {% if product.featured_image %}
+                            <img
+                              src="{{ product.featured_image | image_url: width: 600 }}"
+                              alt="{{ product.title }}"
+                              class="w-full h-auto rounded-xl"
+                            >
+                          {% endif %}
+                          <h3 class="mt-2 text-lg font-semibold">{{ product.title }}</h3>
+                          <span class="text-sm text-gray-600">{{ product.price | money }}</span>
+                        </a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <!-- Arrows -->
+                <div class="flex justify-center !gap-[12px] !w-full">
+                  <!-- Left Arrow -->
+                  <div class="new-prev cursor-pointer !text-[#000110] hover:!text-[#FB8C00] transition-all duration-300">
+                    <svg
+                      width="41"
+                      height="16"
+                      viewBox="0 0 41 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0.818527 8.46773C0.428005 8.0772 0.428005 7.44404 0.818527 7.05351L7.18249 0.689552C7.57301 0.299028 8.20618 0.299028 8.5967 0.689552C8.98723 1.08008 8.98723 1.71324 8.5967 2.10377L2.93985 7.76062L8.5967 13.4175C8.98723 13.808 8.98723 14.4412 8.5967 14.8317C8.20618 15.2222 7.57301 15.2222 7.18249 14.8317L0.818527 8.46773ZM42.9429 7.76062V8.76062H1.52563V7.76062V6.76062H42.9429V7.76062Z"/>
+                    </svg>
+                  </div>
+
+                  <!-- Right Arrow -->
+                  <div class="new-next cursor-pointer !text-[#000110] hover:!text-[#FB8C00] transition-all duration-300">
+                    <svg
+                      width="41"
+                      height="16"
+                      viewBox="0 0 41 16"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M42.65 8.46773C43.0405 8.0772 43.0405 7.44404 42.65 7.05351L36.286 0.689552C35.8955 0.299028 35.2623 0.299028 34.8718 0.689552C34.4813 1.08008 34.4813 1.71324 34.8718 2.10377L40.5287 7.76062L34.8718 13.4175C34.4813 13.808 34.4813 14.4412 34.8718 14.8317C35.2623 15.2222 35.8955 15.2222 36.286 14.8317L42.65 8.46773ZM0.525635 7.76062V8.76062H41.9429V7.76062V6.76062H0.525635V7.76062Z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    // tab switching
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', function () {
+        const tabId = this.getAttribute('data-tab');
+
+        tabButtons.forEach((b) => b.classList.remove('active'));
+        tabContents.forEach((c) => c.classList.add('hidden'));
+
+        this.classList.add('active');
+        document.getElementById(tabId).classList.remove('hidden');
+      });
+    });
+
+    new Swiper('.mySwiperNew', {
+      slidesPerView: 1.2,
+      spaceBetween: 16,
+      loop: true,
+      navigation: {
+        nextEl: '.new-next',
+        prevEl: '.new-prev',
+      },
+      breakpoints: {
+        640: { slidesPerView: 2.2 },
+        768: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Tabbed Collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Shop by Category"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "tab_collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab Label (Desktop)"
+        },
+        {
+          "type": "text",
+          "id": "tab_label_mobile",
+          "label": "Tab Label (Mobile)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabbed Collections"
+    }
+  ]
+}
+{% endschema %}

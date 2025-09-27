@@ -1,0 +1,158 @@
+<style>
+  @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+</style>
+
+<section
+  class="relative overflow-hidden bg-cover bg-center max-md:pt-[100px] !max-w-[1920px] !mx-auto"
+  {% if section.settings.bg_image != blank %}
+    style="background-image: url('{{ section.settings.bg_image | image_url }}')"
+  {% endif %}
+>
+  <div class="max-w-[1289px] ml-auto min-w-[1900px]:!mx-auto">
+    <div class="flex items-center  min-w-[1900px]:!mx-auto flex-col md:flex-row justify-between max-md:!gap-[60px]">
+      <!-- Leaf Image Right Top -->
+      {% if section.settings.leaf_top_image != blank %}
+        <img
+          src="{{ section.settings.leaf_top_image | image_url }}"
+          alt="Leaf Decoration"
+          class="absolute right-0 top-[5%] w-40 md:w-52 lg:!w-[240px] pointer-events-none select-none"
+          width="253"
+          height="124"
+        >
+      {% endif %}
+
+      <!-- Leaf Image Center -->
+      {% if section.settings.leaf_center_image != blank %}
+        <img
+          src="{{ section.settings.leaf_center_image | image_url }}"
+          alt="Leaf Decoration"
+          class="absolute w-40 top-[-6%] !left-[10%] md:!w-[253px] pointer-events-none select-none"
+          width="240"
+          height="117"
+        >
+      {% endif %}
+
+      <!-- Left Column: Text -->
+      <div class="lg:min-w-[499px] min-w-[330px] space-y-6 relative z-10 min-[1910px]:-ml-[240px] !px-6">
+        <h1 class="xl:!text-custom-7xl !font-secondary max-[380px]:!max-w-[315px] lg:!text-custom-4xl max-lg:!text-custom-3xl max-md:!text-center font-bold text-gray-900 !leading-[120%]">
+          {{ section.settings.heading }}
+        </h1>
+
+        {% if section.settings.subtext != blank %}
+          <p class="!text-theme-black opacity-[70%] !max-w-[499px] md:!text-base !text-sm !font-primary max-md:!text-center !mt-4">
+            {{ section.settings.subtext }}
+          </p>
+        {% endif %}
+
+        <div class="flex !space-x-5 !mt-[32px] max-md:justify-center">
+          {% if section.settings.button1_text != blank %}
+            <a
+              href="{{ section.settings.button1_link }}"
+              class="
+                px-6 py-3 !bg-dark-navy border !border-navy !font-primary !m-0 text-white font-bold text-base !leading-[100%] !text-nowrap
+                hover:!bg-transparent hover:!text-theme-black hover:!border-dark-navy
+                transition-colors duration-300 ease-in-out hover:shadow-md
+              "
+            >
+              {{ section.settings.button1_text }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.button2_text != blank %}
+            <a
+              href="{{ section.settings.button2_link }}"
+              class="
+                px-6 py-3 border !border-theme-black !m-0 !font-primary !text-theme-black !text-nowrap !leading-[100%] font-bold text-base
+                hover:!bg-dark-navy hover:!text-white hover:!border-dark-navy
+                transition-colors duration-300 ease-in-out hover:shadow-md
+              "
+            >
+              {{ section.settings.button2_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Right Column: Image -->
+      {% if section.settings.hero_image != blank %}
+        <div class="mt-8 md:mt-0 md:ml-12 z-10">
+          <img
+            class="lg:!min-w-[737px] md:!min-w-[335px]"
+            src="{{ section.settings.hero_image | image_url }}"
+            alt="Hero Image"
+            class="rounded-lg"
+            width="737"
+            height="645"
+          >
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Fabrics That Fit Your Creativity"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "From digitally printed poplins to classic dyed rayons, Kapaas brings high-quality, ready-to-use fabrics for every creative project."
+    },
+    {
+      "type": "text",
+      "id": "button1_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button2_text",
+      "label": "Secondary Button Text",
+      "default": "Explore More"
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "leaf_top_image",
+      "label": "Leaf Image (Top Right)"
+    },
+    {
+      "type": "image_picker",
+      "id": "leaf_center_image",
+      "label": "Leaf Image (Center)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

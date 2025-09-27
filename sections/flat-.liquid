@@ -1,0 +1,78 @@
+{% schema %}
+{
+  "name": "Promo Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "flat_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right Side Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Flat 10% Off"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "No Code Needed, Shop Now!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore our newest collection of printed and dyed fabrics. No code needed — just bold designs, ready to stitch."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class="bg-cover bg-center bg-no-repeat relative lg:py-[79px] md:py-14 py-[45px] pl-6 pr-[22px] max-w-[1920px] mx-auto"
+  style="background-image: url('{{ section.settings.flat_image | img_url: '2000x' }}');"
+>
+  <!-- Color overlay -->
+  <div class="absolute inset-0 !bg-light-gray mix-blend-multiply"></div>
+  <div class="max-w-[1157px] mx-auto relative z-10">
+    <div class="flex flex-col lg:flex-row items-center justify-between lg:gap-14 gap-10">
+      <!-- Left Content -->
+      <div class="text-white lg:max-w-[448px] max-lg:text-center">
+        <h2 class="lg:!text-custom-7xl md:!text-custom-4xl !font-secondary !text-custom-3xl font-bold leading-[120%]">
+          {{ section.settings.heading }}
+        </h2>
+        <h3 class="lg:!text-custom-5xl !font-secondary md:!text-custom-3xl !text-custom-2xl font-bold mb-4 leading-[120%]">
+          {{ section.settings.subheading }}
+        </h3>
+        <p class="text-white font-normal md:text-base !font-primary text-sm opacity-80 leading-[150%]">
+          {{ section.settings.description }}
+        </p>
+      </div>
+
+      <!-- Right Image -->
+      <div class="lg:max-w-[653px] flex justify-center">
+        {% if section.settings.right_image != blank %}
+          <img
+            src="{{ section.settings.right_image | img_url: 'master' }}"
+            alt="Promo Image"
+            class="max-w-[653px] h-auto"
+            width="653"
+            height="368"
+          >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

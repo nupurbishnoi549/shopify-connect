@@ -1,0 +1,184 @@
+{% comment %} <section class="event-packages-section py-16">
+  <div class="max-w-[1180px] mx-auto px-5">
+    <div class="text-center mb-10">
+      <h2 class="text-[28px] md:text-3xl font-semibold leading-[120%]">{{ section.settings.heading }}</h2>
+      <p class="text-gray-500 text-base mt-2">{{ section.settings.subheading }}</p>
+    </div>
+
+    <div class="flex xl:gap-6 lg:gap-4">
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+        <div class="border border-[#E6E6E6] rounded-xl p-6 shadow-sm bg-white flex flex-col justify-between">
+          <div>
+            <!-- Top: EVENT SPACE Badge + Icons -->
+            <div class="flex justify-between items-center mb-3">
+              <p class="text-xs font-medium px-3 py-1 bg-purple-100 text-purple-700 rounded-full">EVENT SPACE</p>
+              <div class="flex gap-2">
+                <!-- Share Icon -->
+                <button
+                  class="w-7 h-7 bg-[#9787FE] rounded-full flex justify-center items-center"
+                  aria-label="Share"
+                >
+                  <svg width="15" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="..." fill="#FCFCFC"/>
+                  </svg>
+                </button>
+                <!-- Wishlist Icon -->
+                <button
+                  class="w-7 h-7 bg-[#9787FE] rounded-full flex justify-center items-center"
+                  data-product-handle="{{ product.handle }}"
+                  aria-label="Wishlist"
+                >
+                  <svg width="12" height="10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="..." stroke="#FCFCFC" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Networking Badge -->
+            {% if block.settings.networking_badge != blank %}
+              <p class="text-base leading-[120%] inline-block font-medium text-[#000] mb-4">
+                {{ block.settings.networking_badge }}
+              </p>
+            {% endif %}
+
+            <!-- Title -->
+            <h3 class="text-lg font-semibold mb-1">{{ product.title }}</h3>
+
+            <!-- Add-on Text -->
+            {% if block.settings.addon_text != blank %}
+              <p class="text-sm text-gray-700 mb-2 italic">{{ block.settings.addon_text }}</p>
+            {% endif %}
+
+            <!-- Description -->
+            <p class="text-sm text-gray-500 mb-3">{{ product.description | strip_html | truncate: 100 }}</p>
+
+            <!-- Price -->
+            <p class="text-2xl font-bold mb-2">
+              {{ product.price | money -}}
+              <span class="text-sm font-normal"> /{{ block.settings.price_type }}</span>
+            </p>
+
+            <!-- Time and People -->
+            <p class="text-sm mb-1">⏰ Time: 4hrs</p>
+            <p class="text-sm mb-4">👥 People: Min 25 Max 100</p>
+
+            <!-- Book Now CTA -->
+            <a
+              href="{{ product.url }}"
+              class="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded text-center block mb-4"
+            >
+              Book Now
+            </a>
+
+            <!-- Shared What's Included from Section Settings -->
+            {% if section.settings.whats_included != blank %}
+              <div class="mt-4">
+                <ul class="space-y-2">
+                  {% assign lines = section.settings.whats_included | newline_to_br | split: '<br />' %}
+                  {% for line in lines %}
+                    <li class="text-sm text-gray-600">{{ line }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Event Packages",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Berlin Event Packages"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Our top sellers"
+    },
+    {
+      "type": "textarea",
+      "id": "whats_included",
+      "label": "What's Included",
+      "default": "Participation in the graffiti workshop\nAll materials and protective gear\nGuidance from professional street artists\nDrinks and breaks during the session\nTeam photo with completed artwork\nPrice listed is per additional person"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "package",
+      "name": "Event Package",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "text",
+          "id": "price_type",
+          "label": "Price Type (e.g., per person, per team)",
+          "default": "person"
+        },
+        {
+          "type": "text",
+          "id": "networking_badge",
+          "label": "Networking Badge",
+          "default": "Networking 25+"
+        },
+        {
+          "type": "text",
+          "id": "addon_text",
+          "label": "Add-on Text",
+          "default": "Add-on for Graffiti Team Event (10 Pax required). Price per person."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Berlin Event Packages",
+      "category": "Custom Sections",
+      "blocks": [
+        {
+          "type": "package",
+          "settings": {
+            "product": "",
+            "price_type": "person",
+            "networking_badge": "Networking 25+",
+            "addon_text": "Add-on for Graffiti Team Event (10 Pax required). Price per person."
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "product": "",
+            "price_type": "team",
+            "networking_badge": "Networking 40+",
+            "addon_text": "Add-on for Breakout Escape (6 Pax required). Price per team."
+          }
+        },
+        {
+          "type": "package",
+          "settings": {
+            "product": "",
+            "price_type": "team",
+            "networking_badge": "Networking 50+",
+            "addon_text": "Add-on for Cocktail Class (10 Pax required). Price per person."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} {% endcomment %}

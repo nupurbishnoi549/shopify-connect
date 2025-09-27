@@ -1,0 +1,74 @@
+<style>
+    @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+  .shadow-custom {
+      box-shadow: 0px 4px 12.1px 0px #01010133;
+    }
+</style>
+
+<section class="lg:!py-[100px] md:py-18 py-14 px-5">
+  <div
+    class="relative bg-cover bg-center shadow-custom rounded-2xl !max-w-[1140px] !mx-auto !overflow-hidden"
+    style="
+      {% if section.settings.background_image != blank %}
+        background-image: url({{ section.settings.background_image | image_url: width: 1920 }});
+      {% endif %}
+    "
+  >
+    <div class="absolute inset-0 !bg-[#00000099]"></div>
+    <div class="relative z-10 container !max-w-[1028px] !mx-auto lg:!py-[60px] !py-10">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div>
+          <h2 class="md:!text-4xl !text-[28px] font-semibold !text-[#FCFCFC] md:pb-4 pb-2 mb-0 !leading-[120%]">
+            {{ section.settings.heading }}
+          </h2>
+          <p class="!max-w-[553px] !text-[#FCFCFC] !text-base mb-0 !leading-[150%]">
+            {{ section.settings.description }}
+          </p>
+        </div>
+        {% if section.settings.button_text != blank %}
+          <button class="!bg-[#9787FE] !whitespace-nowrap font-semibold py-4 px-6 !text-[#FCFCFC] rounded !leading-[100%]">
+            {{ section.settings.button_text }}
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script></script>
+
+{% schema %}
+{
+  "name": "Past Event Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "From The Blog"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore inspiring events organized through GalaCube across different cities. See what’s possible and get ideas for your own setup."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "See our reference events"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Past Event Section"
+    }
+  ]
+}
+{% endschema %}
