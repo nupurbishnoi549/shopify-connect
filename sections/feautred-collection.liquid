@@ -14,8 +14,8 @@
         {% if collection != blank %}
           <button
             class="
-              tab-btn bg-transparent cursor-pointer !font-Inter text-[#000110] border border-black hover:bg-[#FB8C00] hover:border-[#FB8C00]
-              transition-all duration-700 hover:text-white max-sm:w-full !px-[20px] !min-w-[205px] !py-[18.5px] font-semibold text-[20px] leading-[100%]
+              tab-btn bg-transparent cursor-pointer !font-Inter !text-[#000110] !border !border-black hover:!bg-[#FB8C00] hover:!border-[#FB8C00]
+              transition-all duration-700 hover:!text-white max-sm:!w-full !px-[20px] !min-w-[205px] !py-[18.5px] !font-semibold !text-[20px] leading-[100%]
               rounded-full {% if forloop.first %}active{% endif %}
             "
             data-tab="tab-{{ block.id }}"
